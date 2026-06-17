@@ -1,27 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="referrer" content="no-referrer">
-    <title>Loading...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready to Continue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+            color: #ffffff;
+        }
+        .logo-area {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .logo-area span {
+            color: #e74c3c;
+        }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: #111625;
+            padding: 35px 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        /* Progress Steps */
+        .steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+        .step.active {
+            background: #6366f1;
+        }
+        .line {
+            width: 40px;
+            height: 2px;
+            background: #10b981;
+        }
+        .line.active {
+            background: #6366f1;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        p {
+            font-size: 14px;
+            color: #9ca3af;
+            margin: 0 0 25px 0;
+        }
+        
+        /* Circle Status Box */
+        .status-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        .status-circle i {
+            font-size: 40px;
+            color: #10b981;
+        }
+        .timer-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        /* Action Buttons */
+        .btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        .btn:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+        }
+        .btn:disabled {
+            background: #374151 !important;
+            color: #9ca3af !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
+
+        /* Features Box Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .feature-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 10px;
+            border-radius: 14px;
+        }
+        .feature-item i {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .feature-item i.secure { color: #10b981; }
+        .feature-item i.fast { color: #f59e0b; }
+        .feature-item i.safe { color: #3b82f6; }
+        .feature-item div {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .feature-item span {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        /* Info Alert Box */
+        .info-box {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 12px;
+            color: #9ca3af;
+            display: flex;
+            gap: 10px;
+            text-align: left;
+            align-items: flex-start;
+            line-height: 1.5;
+        }
+        .info-box i {
+            color: #6366f1;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        /* Adsterra Slots */
+        .ad-slot {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #4b5563;
+        }
+        
+        .footer-text {
+            font-size: 11px;
+            color: #4b5563;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <script>
-        // একটি অদৃশ্য লিংক তৈরি করে সরাসরি ক্লিক ট্রিগার করা
-        var link = document.createElement('a');
-        link.href = "https://www.effectivecpmnetwork.com/svazkuf6x?key=ab24797ecea81f4f7eb5620e348447db";
-        link.rel = "noreferrer"; // অ্যাড নেটওয়ার্ক জানতে পারবে না ট্রাফিক কোথা থেকে এসেছে
-        document.body.appendChild(link);
-        link.click();
-    </script>
+<div class="logo-area">
+    DOWNLOAD<span>MOVIE</span>
+</div>
+
+<div class="container">
+    
+    <div class="ad-slot">
+        <div><script>
+  atOptions = {
+    'key' : '032576bdf4ff9a018405f999eb10dd91',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/032576bdf4ff9a018405f999eb10dd91/invoke.js"></script>
+</div>
+    </div>
+
+    <div class="steps">
+        <div class="step"><i class="fas fa-check"></i></div>
+        <div class="line"></div>
+        <div class="step"><i class="fas fa-check"></i></div>
+        <div class="line id-line"></div>
+        <div class="step id-step"><i class="fas fa-arrow-right"></i></div>
+    </div>
+
+    <h2 id="main-heading">Please Wait...</h2>
+    <p id="sub-heading">Click the button below after countdown</p>
+
+    <div class="status-circle">
+        <div class="timer-text" id="timer">10</div>
+        <i class="fas fa-check-circle" id="check-icon" style="display: none;"></i>
+    </div>
+
+    <button class="btn" id="action-btn" onclick="handleButtonClick()" disabled>
+        <span id="btn-text">Wait of download link...</span>
+        <i class="fas fa-arrow-right"></i>
+    </button>
+
+    <div class="features">
+        <div class="feature-item">
+            <i class="fas fa-shield-alt secure"></i>
+            <div>Secure</div>
+            <span>Encrypted</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-bolt fast"></i>
+            <div>Fast</div>
+            <span>Quick redirect</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle safe"></i>
+            <div>Safe</div>
+            <span>Verified link</span>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <div>You will be redirected automatically after the countdown. Click the button when it appears to proceed.</div>
+    </div>
+
+    <div class="ad-slot">
+        <div><script>
+  atOptions = {
+    'key' : '085dac0365aaafc2f1f93d2321fb2814',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/085dac0365aaafc2f1f93d2321fb2814/invoke.js"></script>
+</div>
+    </div>
+</div>
+
+<div class="footer-text">Protected by secure link verification</div>
+
+<script>
+    // ------ CONFIGURATION (EIKHANE APNAR LINK BOSHABEN) ------
+    const DIRECT_LINK = "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=2781168cf9b4cf2ce6d93aaa2b0c8db9"; 
+    const BLOGGER_LINK = "https://movie3v.blogspot.com/";
+    let countdownValue = 5; // Koto second wait korbe set korun
+    // --------------------------------------------------------
+
+    const timerElement = document.getElementById('timer');
+    const checkIcon = document.getElementById('check-icon');
+    const btnElement = document.getElementById('action-btn');
+    const btnText = document.getElementById('btn-text');
+    const mainHeading = document.getElementById('main-heading');
+    const subHeading = document.getElementById('sub-heading');
+
+    let clickCount = localStorage.getItem('funnel_click_count') ? parseInt(localStorage.getItem('funnel_click_count')) : 0;
+
+    // Countdown Timer System
+    timerElement.textContent = countdownValue; 
+    const interval = setInterval(() => {
+        countdownValue--;
+        
+        if (countdownValue >= 0) {
+            timerElement.textContent = countdownValue;
+        }
+        if (countdownValue <= 0) {
+            clearInterval(interval);
+            
+            // UI elements update after countdown finish (Image Er Moto Grid Layout)
+            timerElement.style.display = 'none';
+            checkIcon.style.display = 'block';
+            
+            mainHeading.textContent = "Ready!";
+            subHeading.textContent = "Click the button below to continue";
+            
+            // Steps styling convert to complete
+            document.querySelector('.id-line').classList.add('active');
+            document.querySelector('.id-step').classList.add('active');
+            document.querySelector('.id-step').innerHTML = '<i class="fas fa-check"></i>';
+            
+            // Enable Button
+            btnElement.removeAttribute('disabled');
+            btnText.textContent = "Continue";
+        }
+    }, 1000);
+
+    // Double Click Smart Logic
+    function handleButtonClick() {
+        if (clickCount === 0) {
+            // First Click -> Goes to Adsterra Direct Link (Opens in New Tab)
+            localStorage.setItem('funnel_click_count', '1');
+            window.open(DIRECT_LINK, '_blank'); 
+            
+            // Instantly button texts updates for user convenience when they return
+            btnText.textContent = "Continue";
+            mainHeading.textContent = "Redirecting...";
+            subHeading.textContent = "Click again if Destination didn't load.";
+            clickCount = 1;
+        } else {
+            // Second Click -> Redirects current tab to Blogger Webiste
+            localStorage.removeItem('funnel_click_count'); 
+            window.location.href = BLOGGER_LINK;
+        }
+    }
+</script>
 
 </body>
 </html>
