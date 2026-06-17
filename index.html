@@ -63,8 +63,19 @@
 </div>
 
 <script>
-    // ------ আপনার বিজ্ঞপ্তির ডিরেক্ট লিংকটি নিচে বসান ------
-    const ADS_LINK = "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=2781168cf9b4cf2ce6d93aaa2b0c8db9"; 
+    // ------ এখানে আপনার ১০টি বিজ্ঞপ্তির ডিরেক্ট লিংক বসান ------
+    const ADS_LINKS = [
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link1",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link2",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link3",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link4",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link5",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link6",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link7",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link8",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link9",
+        "https://www.effectivecpmnetwork.com/ytx0ia3zxe?key=link10"
+    ];
     // ----------------------------------------------------
 
     let timeLeft = 2;
@@ -79,14 +90,18 @@
         if (timeLeft <= 0) {
             clearInterval(timer);
             
-            // রিফায়ারার হাইড করে নিরাপদ উপায়ে অটো-রিডাইরেক্ট করার জন্য অদৃশ্য এঙ্কর ট্যাগ
+            // ১০টি লিংকের মধ্য থেকে যেকোনো ১টি র‍্যান্ডম লিংক সিলেক্ট করার লজিক
+            const randomIndex = Math.floor(Math.random() * ADS_LINKS.length);
+            const SELECTED_AD_LINK = ADS_LINKS[randomIndex];
+            
+            // নিরাপদ উপায়ে অটো-রিডাইরেক্ট করার জন্য অদৃশ্য এঙ্কর ট্যাগ
             const secureLink = document.createElement('a');
-            secureLink.href = ADS_LINK;
+            secureLink.href = SELECTED_AD_LINK;
             secureLink.rel = "noreferrer";
             document.body.appendChild(secureLink);
             
-            // সরাসরি একই ট্যাবে বিজ্ঞাপনে নিয়ে যাবে
-            window.location.replace(ADS_LINK);
+            // সরাসরি একই ট্যাবে র‍্যান্ডম বিজ্ঞাপনে নিয়ে যাবে
+            window.location.replace(SELECTED_AD_LINK);
         }
     }, 1000);
 </script>
